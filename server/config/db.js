@@ -1,11 +1,16 @@
+// PACKAGES
 const mongoose = require("mongoose");
 
+// CREATE ASYNC FUNCTION TO USE AWAIT WHILE CONNECTING TO MONGODB 
 const connectDB = async () => {
     try {
-        const connection = new mongoose.connect(process.env.MONGO_URL)
-    } catch (error) {
-
+        await mongoose.connect(process.env.MONGO_URL);
+        console.log("MongoDB connected".bgCyan.white);
+    } catch (err) {
+        console.error("MongoDB connection error: ".bgRed.white, err);
+        process.exit(1);  // EXIT ON FAILURE
     }
-}
+};
 
-module.exports = connectDB
+// EXPORT FUNCTION
+module.exports = connectDB;
